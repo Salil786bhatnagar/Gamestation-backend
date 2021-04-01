@@ -90,7 +90,7 @@ router.delete('/delete/:productid',(req,res)=>{
 router.post('/displaybyid',(req,res)=>{
     console.log('body',req.body);
     
-    pool.query('select * from console_product where console_type_id=?',[req.body.console_type_id],(err,result)=>{
+    pool.query('select * from console_product where console_type_id=? order by console_type_id desc',[req.body.console_type_id],(err,result)=>{
         if(err){
             console.log(err);
             

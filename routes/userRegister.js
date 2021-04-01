@@ -15,7 +15,7 @@ router.post('/adduser',(req,res)=>{
           return res.status(400).json([])
       }  
       else
-      {
+      {console.log('Userrrrrrrrrrrr Added')
         return res.status(200).json(result)
       }
     })
@@ -78,26 +78,29 @@ router.post('/delete',(req,res)=>{
     })
 })
 
+router.post("/checklogin",(req,res)=>{
+    pool.query('select * from user_register where phone=?',[req.body.phone],(err,reslt)=>{
+        if(err){
+            return res.status(400).json({status:false,err})
+        }
+        
+        else
+        {
+            if(reslt[0])
+            {
+                return res.status(200).json({status:true , message:'User Already exist',reslt:reslt[0]})
+            }
+            else
+            {
+                return res.status(200).json({status:true , message:'New Customer'})
+            }
+        } 
+    })
+})
 
-router.post('/checklogin',function(req,res)
-{ console.log(req.body)
-pool.query("select * from user_register where phone=?",[req.body.phone],function(err,result){
-if(err){
-  console.log(err)
- return res.status(500).json([])
-}
-else
-{  
-  if(result[0])
-  {
-     return res.status(200).json({status:true, message:'User Already exist',result:result[0]})
-  }
-  else
-  {
-      return res.status(200).json({status:true, message:'New Customer'})}  
-}
 
-})})
+
+
 
 
 module.exports = router;

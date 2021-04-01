@@ -86,9 +86,6 @@ router.post('/update/:id',upload.single('image'),(req,res)=>{
                     return  res.status(200).json(result)
                 }
             })
-        })
-        
-
-
+        })      
 
 module.exports = router ;
